@@ -1,0 +1,230 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html class="h-100">
+
+<head>
+    <title>CodeStar Blog</title>
+
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4" crossorigin="anonymous">
+    </script>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+
+</head>
+
+<body class="d-flex flex-column h-100 main-bg">
+
+    <!-- Navigation -->
+
+    <nav class="navbar navbar-expand-lg navbar-light bg-white">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="{% url 'home' %}"><span class="brand">c<span
+                        class="red-o">o</span>de<span
+                        class="thin">|star</span></span></span></a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarText"
+                aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarText">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="{% url 'home' %}">Home</a>
+                    </li>
+                    {% if user.is_authenticated %}
+                    <li class="nav-item">
+                        <a class="nav-link" href="/accounts/logout/">Logout</a>
+                    </li>
+                    {% else %}
+                    <li class="nav-item">
+                        <a class="nav-link" href="/accounts/signup/">Register</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/accounts/login/">Login</a>
+                    </li>
+                    {% endif %}
+                </ul>
+                <span class="navbar-text text-muted">
+                    adventures of a software developer
+                </span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- <main class="flex-shrink-0 main-bg ">
+        {% block content %}
+        <h1>Things I need to do:</h1>
+        <!-- <div class="d-flex text-white">
+            {% for item in items %}
+            <div class="p-2 flex-fill bg-primary">
+                {% if item.done %}
+                <td><strike>{{ item.name }}</strike></td>
+                {% else %}
+                <td>{{ item.name }}</td>
+                {% endif %}
+
+            </div>
+            <div class="p-2 flex-fill bg-success">
+                <a href="/toggle/{{ item.id }}">
+                    Toggle
+                </a>
+            </div>
+            <div class="p-2 flex-fill bg-primary"><a href="/edit/{{ item.id }}">
+                    Edit
+                </a></div>
+            <div class="p-2 flex-fill bg-primary"><a href="/delete/{{ item.id }}">
+                    Delete
+                </a></div>
+                 {% empty %}
+            <div class="p-2 flex-fill bg-primary">
+                <p>
+                    You have nothing to do
+                </p>
+                </div>
+                {% endfor %}
+        </div> -->
+        <!-- <div class="card">
+
+            {% for item in items %}
+            
+                    {% if item.done %}
+                    <td><strike>{{ item.name }}</strike></td>
+                    {% else %}
+                    <td>{{ item.name }}</td>
+                    {% endif %}
+                    <a href="/toggle/{{ item.id }}">
+                        <button>Toggle</button>
+                    </a>
+                    <a href="/edit/{{ item.id }}">
+                        <button>Edit</button>
+                    </a>
+                    <a href="/delete/{{ item.id }}">
+                        <button>Delete</button>
+                    </a>
+                
+               
+                    <a href="/add" class="btn btn-primary">
+                        <button>Add an Item</button>
+                   
+                {% empty %}
+                
+                    <p>You have nothing to do</p>
+                 
+
+                {% endfor %}
+               
+            </ul>
+        </div> -->
+            <table class="table ">
+                
+                <thead>
+                    <tr>                        
+                        <th>#</th>
+                        <th> Name</th>
+                         <th> buttons</th>
+
+                        <!-- <td<div class="btn-group" role="group" aria-label="Button group with nested dropdown">
+                            <button type="button" class="btn btn-secondary">Edit</button>
+                            <button type="button" class="btn btn-secondary">Delete</button>
+                            </div>
+                        </td> -->
+                    </tr>
+                </thead>
+                <tbody>
+                    <th scope="row">#</th>
+                    {% for item in items %}
+                    <tr>
+                        {% if item.done %}
+                        
+                        <td><strike>{{ item.name }}</strike></td>
+                        {% else %}
+                        <td>{{ item.name }}</td>
+                        
+                        {% endif %}
+                        <td>
+                            <a href="/toggle/{{ item.id }}">
+                                 <button>Toggle</button>
+                            </a>
+                        </td>
+                        <td>
+                            <a href="/edit/{{ item.id }}">
+                                 <button>Edit</button>
+                            </a>
+                        </td>
+                        <td>
+                            <a href="/delete/{{ item.id }}">
+                                 <button>Delete</button>
+                            </a>
+                        </td>
+
+                    </tr>
+                    
+                     {% endfor %}
+                </tbody>
+            </table>
+
+            <!-- <table>
+                {% for item in items %}
+                <tr>
+                    {% if item.done %}
+                    <td><strike>{{ item.name }}</strike></td>
+                    {% else %}
+                    <td>{{ item.name }}</td>
+                    {% endif %}
+                    <td>
+                        <a href="/toggle/{{ item.id }}">
+                            Toggle
+                        </a>
+                    </td>
+                    <td>
+                        <a href="/edit/{{ item.id }}">
+                            Edit
+                        </a>
+                    </td>
+                    <td>
+                        <a href="/delete/{{ item.id }}">
+                            Delete
+                        </a>
+                    </td>
+
+                </tr>
+                {% empty %}
+                <tr>
+                    <td>You have nothing to do</td>
+                </tr>
+
+                {% endfor %}
+            </table> -->
+            </p>
+            <a href="/add" class="btn btn-primary"><button>Add an Item</button></a>
+
+
+
+        
+        <!-- Content Goes here -->
+
+
+        {% endblock content %}
+    </main> -->
+
+    <!-- Footer -->
+    <footer class="footer mt-auto py-3 dark-bg">
+        <p class="m-0 text-center text-white">Made by Code Instituters</p>
+        <p class="m-0 text-center text-white">Follow us: <i class="fab fa-facebook-square ms-3"></i>
+            <i class="fab fa-twitter-square ms-3"></i>
+            <i class="fab fa-instagram-square ms-3"></i>
+            <i class="fab fa-youtube-square ms-3"></i></p>
+    </footer>
+</body>
+
+</html>
+
+
+

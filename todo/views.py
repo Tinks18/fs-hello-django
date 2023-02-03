@@ -1,16 +1,24 @@
 from django.shortcuts import render, redirect, get_object_or_404
+from django.views import generic, View
+# from .models import Post
 from .models import Item
 from .forms import ItemForm
 
 # Create your views here.
 
 
-def get_todo_list(request):
+# class PostList(generic.ListView):
+#     model = Post
+#     queryset = Post.objects.filter(status=1).order_by("-created_on")
+#     template_name = "index.html"
+#     paginate_by = 6
+
+def home(request):
     items = Item.objects.all()
     context = {
         'items': items
     }
-    return render(request, 'todo/todo_list.html', context)
+    return render(request, 'todo/index.html', context)
 
 
 def add_item(request):
@@ -18,7 +26,7 @@ def add_item(request):
         form = ItemForm(request.POST)
         if form.is_valid():
             form.save()
-            return redirect('get_todo_list')
+            return redirect('home')
     form = ItemForm()
     context = {
             'form': form
@@ -32,7 +40,7 @@ def edit_item(request, item_id):
         form = ItemForm(request.POST, instance=item)
         if form.is_valid():
             form.save()
-            return redirect('get_todo_list')
+            return redirect('home')
     form = ItemForm(instance=item)    
     context = {
             'form': form
@@ -44,13 +52,13 @@ def toggle_item(request, item_id):
     item = get_object_or_404(Item, id=item_id)
     item.done = not item.done
     item.save()
-    return redirect('get_todo_list')
+    return redirect('home')
 
 
 def delete_item(request, item_id):
     item = get_object_or_404(Item, id=item_id)
     item.delete()
-    return redirect('get_todo_list')
+    return redirect('home')
 
 
 
