@@ -18,7 +18,7 @@ def home(request):
     context = {
         'items': items
     }
-    return render(request, 'todo/index.html', context)
+    return render(request, 'todo/hello.html', context)
 
 
 def add_item(request):
