@@ -40,14 +40,14 @@
                     </li>
                     {% if user.is_authenticated %}
                     <li class="nav-item">
-                        <a class="nav-link" href="/accounts/logout/">Logout</a>
+                        <a class="nav-link" href="{% url 'account_logout' %}">Logout</a>
                     </li>
                     {% else %}
                     <li class="nav-item">
-                        <a class="nav-link" href="/accounts/signup/">Register</a>
+                        <a class="nav-link" href="{% url 'account_signup' %}">Register</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="/accounts/login/">Login</a>
+                        <a class="nav-link" href="{% url 'account_login' %}">Login</a>
                     </li>
                     {% endif %}
                 </ul>
@@ -128,7 +128,7 @@
                     <tr>                        
                         <th>#</th>
                         <th> Name</th>
-                         <th> buttons</th>
+                         <th> </th>
 
                         <!-- <td<div class="btn-group" role="group" aria-label="Button group with nested dropdown">
                             <button type="button" class="btn btn-secondary">Edit</button>
@@ -212,7 +212,7 @@
 
 
         {% endblock content %}
-    </main> -->
+    </main> 
 
     <!-- Footer -->
     <footer class="footer mt-auto py-3 dark-bg">
